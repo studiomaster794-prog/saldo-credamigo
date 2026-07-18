@@ -125,54 +125,64 @@ body{
 .header-btn:hover{border-color:var(--glass-border2);background:rgba(255,255,255,0.06);}
 .header-btn svg{width:14px;height:14px;}
 
-/* ===== SALDO CARD ===== */
+/* ===== RESUMO: saldo + saiu/entrou lado a lado ===== */
+.summary-row{
+  display:flex;
+  align-items:stretch;
+  gap:10px;
+  margin-bottom:18px;
+}
 .saldo-card{
+  flex:1.15;
+  min-width:0;
   background:linear-gradient(145deg,#152238 0%,#0d1528 100%);
   border:2px solid rgba(46,230,200,0.45);
   border-radius:var(--r);
-  padding:22px 20px;
-  margin-bottom:16px;
+  padding:12px 14px;
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 8px 28px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+  flex-direction:column;
+  justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
   position:relative;
   overflow:hidden;
 }
 .saldo-card::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 20% 0%,rgba(46,230,200,0.18),transparent 55%);
+  background:radial-gradient(circle at 20% 0%,rgba(46,230,200,0.16),transparent 55%);
   pointer-events:none;
 }
 .saldo-info{position:relative;z-index:1;}
 .saldo-label{
-  font-size:13px;color:var(--text2);font-weight:700;margin-bottom:8px;
-  text-transform:uppercase;letter-spacing:.06em;
+  font-size:10px;color:var(--text2);font-weight:800;margin-bottom:4px;
+  text-transform:uppercase;letter-spacing:.05em;
 }
 .saldo-value{
-  font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1.1;
+  font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1.15;
   font-feature-settings:"tnum";
   color:var(--green);
-  text-shadow:0 0 24px rgba(34,240,160,0.35);
+  text-shadow:0 0 18px rgba(34,240,160,0.3);
+  word-break:break-word;
 }
 
-
-/* ===== PILLS SUMMARY ===== */
-.pills-row{
+/* ===== PILLS (coluna ao lado do saldo) ===== */
+.pills-col{
+  flex:0.95;
+  min-width:0;
   display:flex;
-  gap:10px;
-  margin-bottom:22px;
+  flex-direction:column;
+  gap:8px;
 }
 .pill{
   flex:1;
   display:flex;
   align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:12px 12px;
+  justify-content:flex-start;
+  gap:6px;
+  padding:8px 10px;
   border-radius:var(--r3);
   border:2px solid transparent;
   background:var(--surface);
+  min-height:0;
 }
 .pill.green{
   background:rgba(34,240,160,0.12);
@@ -182,13 +192,28 @@ body{
   background:rgba(255,77,109,0.12);
   border-color:rgba(255,77,109,0.55);
 }
-.pill svg{width:16px;height:16px;flex-shrink:0;}
+.pill svg{width:14px;height:14px;flex-shrink:0;}
 .pill.green svg{color:var(--green);}
 .pill.red svg{color:var(--red);}
-.pill span{
-  font-size:12px;font-weight:700;letter-spacing:-.01em;
+.pill-text{
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  min-width:0;
+}
+.pill-text .pill-label{
+  font-size:9px;font-weight:800;letter-spacing:.04em;
+  text-transform:uppercase;opacity:.9;
+}
+.pill.red .pill-label{color:#ffb3c1;}
+.pill.green .pill-label{color:#9ff5d4;}
+.pill-text .pill-value{
+  font-size:13px;font-weight:800;letter-spacing:-.02em;
   font-feature-settings:"tnum";
-  color:var(--text);
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 /* ===== SECTIONS (ENTRADAS/SAÍDAS) ===== */
@@ -410,12 +435,19 @@ input[type="number"]::-webkit-outer-spin-button{
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:480px){
-  .scroll-content{padding:16px 16px 40px;}
-  .saldo-value{font-size:22px;}
-  .pills-row{gap:8px;}
-  .pill{padding:10px 12px;font-size:12px;}
-  .pill span{font-size:12px;}
-  .pill svg{width:14px;height:14px;}
+  .scroll-content{padding:16px 14px 40px;}
+  .summary-row{gap:8px;}
+  .saldo-card{padding:10px 12px;}
+  .saldo-value{font-size:20px;}
+  .saldo-label{font-size:9px;}
+  .pill{padding:7px 8px;gap:5px;}
+  .pill svg{width:13px;height:13px;}
+  .pill-text .pill-value{font-size:12px;}
+  .pill-text .pill-label{font-size:8px;}
+}
+@media(max-width:360px){
+  .saldo-value{font-size:17px;}
+  .pill-text .pill-value{font-size:11px;}
 }
 </style>
 </head>
@@ -441,24 +473,29 @@ input[type="number"]::-webkit-outer-spin-button{
     </div>
   </div>
 
-  <!-- Saldo Card -->
-  <div class="saldo-card fade-in">
-    <div class="saldo-info">
-      <div class="saldo-label">Saldo disponível</div>
-      <div class="saldo-value" id="saldo">R$ 0,00</div>
+  <!-- Resumo: saldo + saiu/entrou -->
+  <div class="summary-row fade-in">
+    <div class="saldo-card">
+      <div class="saldo-info">
+        <div class="saldo-label">Saldo disponível</div>
+        <div class="saldo-value" id="saldo">R$ 0,00</div>
+      </div>
     </div>
-
-  </div>
-
-  <!-- Pills Summary -->
-  <div class="pills-row fade-in">
-    <div class="pill red">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-      <span>Saiu: <strong id="totOut">R$ 0,00</strong></span>
-    </div>
-    <div class="pill green">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-      <span>Entrou: <strong id="totIn">R$ 0,00</strong></span>
+    <div class="pills-col">
+      <div class="pill red">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        <div class="pill-text">
+          <span class="pill-label">Saiu</span>
+          <span class="pill-value" id="totOut">R$ 0,00</span>
+        </div>
+      </div>
+      <div class="pill green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        <div class="pill-text">
+          <span class="pill-label">Entrou</span>
+          <span class="pill-value" id="totIn">R$ 0,00</span>
+        </div>
+      </div>
     </div>
   </div>
 
