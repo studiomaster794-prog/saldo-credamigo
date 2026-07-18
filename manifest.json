@@ -1,7 +1,7 @@
 {
-  "name": "Studio Seiko — Caixa",
-  "short_name": "Seiko Caixa",
-  "description": "Controle de caixa financeiro do Studio Seiko — Cred Amigo",
+  "name": "SaldoCred",
+  "short_name": "SaldoCred",
+  "description": "Controle de caixa financeiro — Cred Amigo",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

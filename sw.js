@@ -3,7 +3,7 @@
    (corrigido para GitHub Pages / index.html)
    ============================================= */
 
-const CACHE_NAME = 'seiko-caixa-v3';
+const CACHE_NAME = 'saldocred-v4';
 
 const ASSETS = [
   './',
