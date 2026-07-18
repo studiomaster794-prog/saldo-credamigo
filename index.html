@@ -415,50 +415,17 @@ input[type="number"]::-webkit-outer-spin-button{
 
   <!-- Pills Summary -->
   <div class="pills-row fade-in">
-    <div class="pill green">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-      <span>Entrou: <strong id="totIn">R$ 0,00</strong></span>
-    </div>
     <div class="pill red">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       <span>Saiu: <strong id="totOut">R$ 0,00</strong></span>
     </div>
+    <div class="pill green">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      <span>Entrou: <strong id="totIn">R$ 0,00</strong></span>
+    </div>
   </div>
 
-  <!-- ENTRADAS Section -->
-  <div class="section fade-in">
-    <div class="section-header">
-      <div class="section-title entradas">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-        ENTRADAS
-      </div>
-      <div class="section-count" id="countIn">0</div>
-    </div>
-
-    <!-- Form Entrada -->
-    <div class="form-card entrada">
-      <div class="form-field">
-        <input type="text" id="inNome" placeholder="Nome" maxlength="30">
-      </div>
-      <div class="form-row">
-        <div class="form-field">
-          <input type="number" id="inValor" placeholder="Valor" min="0" step="0.01">
-        </div>
-        <div class="form-field">
-          <input type="date" id="inData">
-        </div>
-      </div>
-      <button class="register-btn entrada" onclick="addEntrada()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-        Registrar
-      </button>
-    </div>
-
-    <!-- Lista de Entradas -->
-    <div id="listaEntradas"></div>
-  </div>
-
-  <!-- SAÍDAS Section -->
+  <!-- SAÍDAS Section (primeiro: uso diário — carro de som, serviços etc.) -->
   <div class="section fade-in">
     <div class="section-header">
       <div class="section-title saidas">
@@ -471,7 +438,7 @@ input[type="number"]::-webkit-outer-spin-button{
     <!-- Form Saída -->
     <div class="form-card saida">
       <div class="form-field">
-        <input type="text" id="outNome" placeholder="Nome" maxlength="30">
+        <input type="text" id="outNome" placeholder="Nome (ex: carro de som)" maxlength="30">
       </div>
       <div class="form-row">
         <div class="form-field">
@@ -489,6 +456,39 @@ input[type="number"]::-webkit-outer-spin-button{
 
     <!-- Lista de Saídas -->
     <div id="listaSaidas"></div>
+  </div>
+
+  <!-- ENTRADAS Section (depois: depósito ocasional do Cred Amigo) -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-title entradas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        ENTRADAS
+      </div>
+      <div class="section-count" id="countIn">0</div>
+    </div>
+
+    <!-- Form Entrada -->
+    <div class="form-card entrada">
+      <div class="form-field">
+        <input type="text" id="inNome" placeholder="Nome (ex: depósito Cred Amigo)" maxlength="30">
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <input type="number" id="inValor" placeholder="Valor" min="0" step="0.01">
+        </div>
+        <div class="form-field">
+          <input type="date" id="inData">
+        </div>
+      </div>
+      <button class="register-btn entrada" onclick="addEntrada()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Registrar
+      </button>
+    </div>
+
+    <!-- Lista de Entradas -->
+    <div id="listaEntradas"></div>
   </div>
 
 </div>

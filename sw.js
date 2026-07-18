@@ -3,7 +3,7 @@
    (corrigido para GitHub Pages / index.html)
    ============================================= */
 
-const CACHE_NAME = 'saldocred-v5';
+const CACHE_NAME = 'saldocred-v6';
 
 const ASSETS = [
   './',
